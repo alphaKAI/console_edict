@@ -6,6 +6,7 @@ import cedict.eijiroparser;
 import cedict.avldict;
 import cedict.hashdict;
 import cedict.redisdict;
+import cedict.lveldbdict;
 import std.stdio;
 import std.format;
 import std.string;
@@ -26,7 +27,8 @@ static enum string asStr(ConfigField cf) {
 enum DictKind {
   AVL,
   Hash,
-  Redis
+  Redis,
+  LevelDB
 }
 
 static enum string asStr(DictKind dk) {
@@ -34,6 +36,7 @@ static enum string asStr(DictKind dk) {
   case DictKind.AVL : return "AVL";
   case DictKind.Hash : return "Hash";
   case DictKind.Redis : return "Redis";
+  case DictKind.LevelDB : return "LevelDB";
   }
 }
 
@@ -84,6 +87,10 @@ class Config {
     case DictKind.Redis.asStr:
       this.dict = new RedisDictionary;
       this.dict_kind = DictKind.Redis;
+      break;
+    case DictKind.LevelDB.asStr:
+      this.dict = new LevelDBDictionary;
+      this.dict_kind = DictKind.LevelDB;
       break;
     }
 
