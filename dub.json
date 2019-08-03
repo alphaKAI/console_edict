@@ -1,0 +1,11 @@
+{
+	"authors": [
+		"alphakai"
+	],
+	"copyright": "Copyright © 2019, alphakai",
+	"dependencies": {
+	},
+	"description": "A minimal Console Dictionary",
+	"license": "MIT",
+	"name": "console_edict"
+}

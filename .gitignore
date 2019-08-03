@@ -1,0 +1,16 @@
+.dub
+docs.json
+__dummy.html
+docs/
+/console_edict
+console_edict.so
+console_edict.dylib
+console_edict.dll
+console_edict.a
+console_edict.lib
+console_edict-test-*
+*.exe
+*.o
+*.obj
+*.lst
+EIJIRO-1446_utf8.txt
