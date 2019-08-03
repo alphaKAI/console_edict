@@ -12,6 +12,8 @@ You can specify the blow algorithm to store dictionaries:
 
 - AVLTree
 - Hash(D's internal hash map)
+- Redis
+- LevelDB (recommended)
 
 ## Note
 
