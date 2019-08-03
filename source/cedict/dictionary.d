@@ -3,6 +3,7 @@ import cedict.parser;
 import std.typecons;
 
 interface Dictionary {
+  bool ready();
   void insert(wstring key, wstring value);
   Nullable!wstring get(wstring key);
   bool exists(wstring key);

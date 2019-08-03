@@ -6,12 +6,16 @@ import std.typecons;
 
 class AVLDictionary : Dictionary {
   private AVLTree!(wstring, wstring) tree;
+  private bool _ready;
 
   this() {
     this.tree = new AVLTree!(wstring, wstring);
   }
 
   void insert(wstring key, wstring value) {
+    if (!this._ready) {
+      this._ready = true;
+    }
     this.tree.insert(key, value);
   }
 
@@ -21,5 +25,9 @@ class AVLDictionary : Dictionary {
 
   bool exists(wstring key) {
     return this.tree.exists(key);
+  }
+
+  bool ready() {
+    return this._ready;
   }
 }

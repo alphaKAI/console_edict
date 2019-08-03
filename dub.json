@@ -4,6 +4,7 @@
 	],
 	"copyright": "Copyright © 2019, alphakai",
 	"dependencies": {
+		"tinyredis":"*"
 	},
 	"description": "A minimal Console Dictionary",
 	"license": "MIT",

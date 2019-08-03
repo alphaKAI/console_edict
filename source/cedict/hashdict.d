@@ -7,11 +7,15 @@ import std.typecons;
 
 class HashDictionary : Dictionary {
   private wstring[wstring] dict;
+  private bool _ready;
 
   this() {
   }
 
   void insert(wstring key, wstring value) {
+    if (!this._ready) {
+      this._ready = true;
+    }
     this.dict[key] = value;
   }
 
@@ -25,5 +29,9 @@ class HashDictionary : Dictionary {
 
   bool exists(wstring key) {
     return key in this.dict ? true : false;
+  }
+
+  bool ready() {
+    return this._ready;
   }
 }

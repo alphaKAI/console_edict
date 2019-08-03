@@ -5,6 +5,7 @@ import cedict.parser;
 import cedict.eijiroparser;
 import cedict.avldict;
 import cedict.hashdict;
+import cedict.redisdict;
 import std.stdio;
 import std.format;
 import std.string;
@@ -24,13 +25,15 @@ static enum string asStr(ConfigField cf) {
 
 enum DictKind {
   AVL,
-  Hash
+  Hash,
+  Redis
 }
 
 static enum string asStr(DictKind dk) {
   final switch (dk) {
   case DictKind.AVL : return "AVL";
   case DictKind.Hash : return "Hash";
+  case DictKind.Redis : return "Redis";
   }
 }
 
@@ -47,6 +50,7 @@ static enum string asStr(DriverKind dk) {
 class Config {
   DictParser[string] filename_and_parser_map;
   Dictionary dict;
+  DictKind dict_kind;
 
   this(File fp) {
     string config_raw_data;
@@ -71,9 +75,15 @@ class Config {
     final switch (dict) {
     case DictKind.AVL.asStr:
       this.dict = new AVLDictionary;
+      this.dict_kind = DictKind.AVL;
       break;
     case DictKind.Hash.asStr:
       this.dict = new HashDictionary;
+      this.dict_kind = DictKind.Hash;
+      break;
+    case DictKind.Redis.asStr:
+      this.dict = new RedisDictionary;
+      this.dict_kind = DictKind.Redis;
       break;
     }
 
