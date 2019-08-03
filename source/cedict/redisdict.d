@@ -32,7 +32,10 @@ class RedisDictionary : Dictionary {
     if (!this.ready) {
       this.redis.send("set console_edict_initialized true");
     }
-    string redis_cmd = `set \"%s\" \"%s\"`.format(key, value);
+    import std.array;
+
+    string redis_cmd = `set "%s" "%s"`.format(key.replace("\"", "\\\""),
+        value.replace("\"", "\\\""));
 
     try {
       this.redis.send(redis_cmd);
