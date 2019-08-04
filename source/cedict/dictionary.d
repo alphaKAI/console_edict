@@ -7,6 +7,7 @@ interface Dictionary {
   void insert(wstring key, wstring value);
   Nullable!wstring get(wstring key);
   bool exists(wstring key);
+  wstring[] getHeads();
 }
 
 static Dictionary makeFromParseResults(DictType)(ParseResult[] results) {

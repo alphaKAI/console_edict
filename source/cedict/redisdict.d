@@ -66,4 +66,21 @@ class RedisDictionary : Dictionary {
     Response res = redis.send(" get \"%s\"".format(key));
     return !res.isNil;
   }
+
+  private wstring[] heads_cache;
+  wstring[] getHeads() {
+    if (heads_cache.length) {
+      return heads_cache;
+    }
+    Response res = redis.send("keys *");
+    if (res.isArray) {
+      import std.conv;
+
+      foreach (v; res.values) {
+        heads_cache ~= v.value.to!wstring;
+      }
+    }
+    return heads_cache;
+  }
+
 }

@@ -58,6 +58,20 @@ class LevelDBDictionary : Dictionary {
   }
 
   bool exists(wstring key) {
-    return this.db.get_slice(key).ok;
+    return this.db.get_slice(key.to!string).ok;
+  }
+
+  private wstring[] heads_cache;
+  wstring[] getHeads() {
+    if (heads_cache.length) {
+      return heads_cache;
+    }
+
+    auto it = this.db.iterator;
+    foreach (Slice key, value; it) {
+      heads_cache ~= key.as!string
+        .to!wstring;
+    }
+    return heads_cache;
   }
 }

@@ -34,4 +34,8 @@ class HashDictionary : Dictionary {
   bool ready() {
     return this._ready;
   }
+
+  wstring[] getHeads() {
+    return this.dict.keys;
+  }
 }

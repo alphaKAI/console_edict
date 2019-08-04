@@ -30,4 +30,15 @@ class AVLDictionary : Dictionary {
   bool ready() {
     return this._ready;
   }
+
+  private wstring[] heads_cache;
+  wstring[] getHeads() {
+    if (heads_cache.length) {
+      return heads_cache;
+    }
+
+    heads_cache = this.tree.keys;
+
+    return heads_cache;
+  }
 }
