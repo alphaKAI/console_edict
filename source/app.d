@@ -6,7 +6,11 @@ import std.datetime.stopwatch;
 import cedict.config;
 import leveldb;
 
-extern (C) void add_history(const char* string);
+extern (C) {
+  void add_history(const char* string);
+}
+
+enum CEDICT_HISTORY_FILE = ".cedict_history";
 
 string readLine(in string prompt, bool useHistory = true) {
   import gnu.readline;
@@ -30,7 +34,7 @@ void lookup_mean(ref Context ctx, wstring input) {
   with (ctx) {
     auto mean = conf.dict.get(input);
     if (!mean.isNull) {
-      writefln("<found the word> [%s]", input);
+      //writefln("<found the word> [%s]", input);
       writeln(mean.get);
     } else {
       writefln("<not found the word - %s>", input);
@@ -103,9 +107,7 @@ void main() {
   auto ctx = Context(conf, did_you_mean_db);
 
   for (;;) {
-
-    //write("WORD > ");
-    wstring input = readLine("WORD >").chomp.to!wstring; //readln!wstring.chomp;
+    wstring input = readLine("WORD > ").chomp.to!wstring;
 
     if (input == ":q") {
       writeln("EXIT");
