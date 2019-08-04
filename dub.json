@@ -5,7 +5,8 @@
 	"copyright": "Copyright © 2019, alphakai",
 	"dependencies": {
 		"tinyredis":"*",
-    "d-leveldb":"*"
+		"d-leveldb":"*",
+		"readline" : "*"
 	},
 	"description": "A minimal Console Dictionary",
 	"license": "MIT",

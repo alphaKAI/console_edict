@@ -6,6 +6,19 @@ import std.datetime.stopwatch;
 import cedict.config;
 import leveldb;
 
+extern (C) void add_history(const char* string);
+
+string readLine(in string prompt, bool useHistory = true) {
+  import gnu.readline;
+  import std.string : toStringz, fromStringz;
+
+  const lineStringz = readline(prompt.toStringz);
+  if (useHistory) {
+    add_history(lineStringz);
+  }
+  return lineStringz.fromStringz.to!string;
+}
+
 enum SETTING_FILE = "settings.json";
 
 struct Context {
@@ -90,8 +103,9 @@ void main() {
   auto ctx = Context(conf, did_you_mean_db);
 
   for (;;) {
-    write("WORD > ");
-    wstring input = readln!wstring.chomp;
+
+    //write("WORD > ");
+    wstring input = readLine("WORD >").chomp.to!wstring; //readln!wstring.chomp;
 
     if (input == ":q") {
       writeln("EXIT");
