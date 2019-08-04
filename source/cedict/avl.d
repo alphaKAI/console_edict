@@ -11,23 +11,23 @@ private static string string_rep(string s, size_t n) {
   return ret;
 }
 
-class AVLTree(K, V) {
-  private AVLNode!(K, V) root;
+class AVLNode(K, V) {
+  public K key;
+  public V value;
+  private int height, size;
+  public AVLNode!(K, V) left;
+  public AVLNode!(K, V) right;
 
-  private class AVLNode(K, V) {
-    public K key;
-    public V value;
-    private int height, size;
-    private AVLNode!(K, V) left;
-    private AVLNode!(K, V) right;
-
-    this(K key, V value) {
-      this.key = key;
-      this.value = value;
-      this.height = 1;
-      this.size = 1;
-    }
+  this(K key, V value) {
+    this.key = key;
+    this.value = value;
+    this.height = 1;
+    this.size = 1;
   }
+}
+
+class AVLTree(K, V) {
+  public AVLNode!(K, V) root;
 
   public Nullable!V find(K key) {
     AVLNode!(K, V) ret = AVLTree!(K, V).find(this.root, key);
@@ -162,4 +162,33 @@ class AVLTree(K, V) {
   public void print_tree() {
     print_node(this.root, 0);
   }
+
+  static void collect_keys(AVLNode!(K, V) node, ref K[] ret) {
+    if (node !is null) {
+      ret ~= node.key;
+      AVLTree!(K, V).collect_keys(node.left, ret);
+      AVLTree!(K, V).collect_keys(node.right, ret);
+    }
+  }
+
+  K[] keys() {
+    K[] ret;
+    AVLTree!(K, V).collect_keys(this.root, ret);
+    return ret;
+  }
+
+  static void collect_values(AVLNode!(K, V) node, ref V[] ret) {
+    if (node !is null) {
+      ret ~= node.value;
+      AVLTree!(K, V).collect_values(node.left, ret);
+      AVLTree!(K, V).collect_values(node.right, ret);
+    }
+  }
+
+  V[] values() {
+    V[] ret;
+    AVLTree!(K, V).collect_values(this.root, ret);
+    return ret;
+  }
+
 }
